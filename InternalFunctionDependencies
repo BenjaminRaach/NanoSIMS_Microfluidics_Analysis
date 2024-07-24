@@ -1,0 +1,78 @@
+def create_combined_image
+
+    self.divide_and_conquer
+
+        self._read_in_image
+
+            None
+
+        self._show_image
+
+            None
+
+        self._read_in_h5
+
+            None
+
+        self._helper
+
+            None
+
+        self.scan
+
+            self._rescale_NanoSIMS_image
+
+                None
+
+            self.rotate_image
+
+                None
+
+            self._cross_correlation_with_negative
+
+                None
+
+            self._save_best_positions
+
+                None
+
+        self.best_of_scan_from_df
+
+            self._rescale_NanoSIMS_image
+
+                None
+
+            self.rotate_image
+
+                None
+
+            self._stitching
+
+                None 
+
+            IF self._highlight_difference
+
+                None
+
+
+        self._rescale_NanoSIMS_image
+
+            None
+
+        self.rotate_image
+
+            None
+
+        self._divide_image
+
+            None
+
+
+        self._find_all_explicit_labels
+
+            None
+
+
+    self._save_intensity_map
+
+        None
