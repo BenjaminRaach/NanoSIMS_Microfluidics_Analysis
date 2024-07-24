@@ -1,0 +1,62 @@
+Explanation of the Overlapping Process
+
+The provided code outlines a comprehensive approach to overlap (align) two images, specifically using techniques suitable for NanoSIMS (nanoscale secondary ion mass spectrometry) images. Here's a step-by-step explanation of how the code achieves this:
+1. Reading and Preparing Images
+
+    The Image_stitching class is initialized with several attributes for storing labels, positions, intensity maps, and configuration parameters such as angles, scaling factors, and tolerance.
+    The _read_in_image method reads images from specified paths, handling different file extensions (e.g., .png, .tif).
+    The _read_in_h5 method reads HDF5 files to extract image labels.
+
+2. Rescaling and Rotating Images
+
+    The _rescale_NanoSIMS_image method rescales images by a specified scaling factor using OpenCV's resize function.
+    The rotate_image method rotates images by a specified angle using OpenCV's warpAffine function.
+
+3. Cross-Correlation and Stitching
+
+    The _cross_correlation_with_negative method computes the cross-correlation between two images. It applies a negative weighting to zero-value pixels in the first image and uses the Fourier Transform for efficient computation.
+    The _stitching method stitches two images together at a specified offset, handling both 2D and 3D images.
+
+4. Finding Explicit Labels
+
+    The _find_all_explicit_labels method identifies labels that are exclusively within a specified subregion of an image, highlighting those labels.
+
+5. Scanning and Best Position Selection
+
+    The scan method scans the NanoSIMS image with various rotations and scaling factors to find the best match with the mask image. It performs cross-correlation for each combination of angle and scaling factor and records the positions with the highest correlation values.
+    The best_of_scan_from_df method selects the best position from the scan results, applies the corresponding transformations, and optionally displays the results.
+
+6. Divide and Conquer Approach
+
+    The divide_and_conquer method implements a divide and conquer strategy to process NanoSIMS images and match them with the mask. It divides the NanoSIMS image into smaller overlapping images, scans each small image to find the best match, and stitches the results together to form a final image.
+
+7. Creating a Combined Image
+
+    The create_combined_image method processes multiple NanoSIMS images according to a specified arrangement, utilizing the divide and conquer approach for each image index in the arrangement. The resulting images are saved and returned as a list.
+
+Example Workflow
+
+Here's a simplified summary of how these methods work together to overlap two images:
+
+    Initialization:
+        An instance of the Image_stitching class is created, initializing necessary attributes.
+
+    Reading Images:
+        Images are read from specified paths using _read_in_image and _read_in_h5.
+
+    Rescaling and Rotating:
+        Images are rescaled and rotated to match the dimensions and orientation of the reference image.
+
+    Cross-Correlation:
+        Cross-correlation is performed to find the best alignment of the images.
+
+    Stitching:
+        The images are stitched together at the optimal offset identified by the cross-correlation.
+
+    Divide and Conquer:
+        The NanoSIMS image is divided into smaller overlapping regions, and each region is individually aligned and stitched to the mask.
+
+    Result Compilation:
+        The final aligned image is compiled from the individual regions, and the results are saved.
+
+This detailed approach ensures that the images are accurately aligned, leveraging techniques like cross-correlation, Fourier transforms, and iterative scanning with varying transformations.
